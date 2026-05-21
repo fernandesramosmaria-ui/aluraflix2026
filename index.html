@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <title>Guiminamflix</title>
+
+    <style>
+        /* --- VARIÁVEIS E CONFIGURAÇÕES GERAIS --- */
+        :root {
+            --primary-color: #E50914;
+            --background-color: #141414;
+            --card-bg: #1f1f1f;
+            --text-color: #FFFFFF;
+            --accent-color: #00DFA2;
+            --neon-glow: 0px 0px 15px rgba(229, 9, 20, 0.6);
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: "Chakra Petch", sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* --- HEADER PREMIUM --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 4%;
+            box-sizing: border-box;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            transition: background 0.3s ease;
+        }
+
+        header.scrolled {
+            background: rgba(20, 20, 20, 0.95);
+            border-bottom: 2px solid var(--primary-color);
+            box-shadow: var(--neon-glow);
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            letter-spacing: 2px;
+            text-decoration: none;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: #E5E5E5;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--primary-color);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-bar {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #555;
+            padding: 6px 12px;
+            border-radius: 20px;
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            width: 180px;
+        }
+
+        .search-bar:focus {
+            border-color: var(--primary-color);
+        }
+
+        /* --- HERO BANNER (CHAMADA PRINCIPAL) --- */
+        .chamada {
+            position: relative;
+            min-height: 85vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 100px 4% 50px 4%;
+            box-sizing: border-box;
+            transition: background-image 0.8s ease-in-out;
+        }
+
+        /* Degradê para fusão de fundo cinematográfica */
+        .chamada::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(20,20,20,0.95) 30%, rgba(20,20,20,0.5) 60%, rgba(20,20,20,0.95) 100%),
+                        linear-gradient(to bottom, rgba(20,20,20,0.1), rgba(20,20,20,1) 95%);
+            z-index: 1;
+        }
+
+        .chamada-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 40px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .chamada-texto {
+            max-width: 650px;
+        }
+
+        .chamada-texto h1 {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-color);
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.9);
+            margin: 0 0 10px 0;
+            line-height: 1.1;
+        }
+
+        .chamada-texto p.tagline {
+            color: var(--accent-color);
+            font-weight: 600;
+            font-size: 18px;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .chamada-texto p.description {
+            color: #CCCCCC;
+            font-size: 16px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        /* Botões do Banner */
+        .btn-container {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 28px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #ff1e27;
+            transform: translateY(-2px);
+            box-shadow: var(--neon-glow);
+        }
+
+        .btn-secondary {
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            backdrop-filter: blur(5px);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Container do Player Incorporado */
+        .player-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: 3px solid var(--primary-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--neon-glow);
+            transition: transform 0.3s ease;
+        }
+
+        .player-container:hover {
+            transform: scale(1.02);
+        }
+
+        .player-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- VITRINE DE CATEGORIAS --- */
+        .categoria {
+            padding: 30px 4%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .categoria h2 {
+            color: #EEEEEE;
+            font-size: 24px;
+            font-weight: 600;
+            margin: 0 0 15px 0;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+        }
+
+        .categoria-videos {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 10px 5px 20px 5px;
+            scroll-behavior: smooth;
+        }
+
+        /* Estilização dos Cards de Vídeo */
+        .card-video {
+            flex: 0 0 auto;
+            width: 280px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .card-video:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8), 0 0 10px rgba(229, 9, 20, 0.4);
+            border-color: var(--primary-color);
+        }
+
+        .card-thumb-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+        }
+
+        .card-video img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card-video:hover img {
+            transform: scale(1.1);
+        }
+
+        .card-info {
+            padding: 12px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-tag {
+            color: var(--accent-color);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* --- CONTROLES DE ROLAGEM CUSTOMIZADOS --- */
+        .categoria-videos::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .categoria-videos::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+        }
+
+        .categoria-videos::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        .categoria-videos::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-color);
+        }
+
+        /* --- RESPONSIVIDADE (MOBILE & TABLETS) --- */
+        @media (max-width: 968px) {
+            .chamada-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .chamada {
+                min-height: auto;
+                padding-top: 100px;
+            }
+
+            .chamada-texto h1 {
+                font-size: 36px;
+            }
+
+            .nav-links {
+                display: none; /* Simplifica o menu em telas pequenas */
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                padding: 10px 4%;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .search-bar {
+                width: 120px;
+            }
+
+            .chamada-texto h1 {
+                font-size: 28px;
+            }
+
+            .btn-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn {
+                width: 100%;
+            }
+            
+            .card-video {
+                width: 220px;
+            }
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            border-top: 1px solid #222;
+            padding: 30px 4%;
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            margin-top: 50px;
+        }
+
+        footer strong {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CABEÇALHO (HEADER) -->
+    <header id="mainHeader">
+        <div class="logo-container">
+            <a href="#" class="logo">GUIMINAMFLIX</a>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Início</a></li>
+                <li><a href="#">Séries</a></li>
+                <li><a href="#">Filmes</a></li>
+                <li><a href="#">Bombando</a></li>
+                <li><a href="#">Minha Lista</a></li>
+            </ul>
+        </div>
+        <div class="header-actions">
+            <input type="text" placeholder="Buscar título..." class="search-bar">
+        </div>
+    </header>
+
+    <!-- BANNER DE CHAMADA (DESTAQUE INTEGRADO) -->
+    <section class="chamada" id="heroBanner" style="background-image: url('https://img.youtube.com/vi/gt_fAE1Eg2Q/maxresdefault.jpg');">
+        <div class="chamada-content">
+            <div class="chamada-texto">
+                <p class="tagline" id="heroTag">#homem-aranha</p>
+                <h1 id="heroTitle">ATRAVÉS DO ARANHAVERSO</h1>
+                <p class="description" id="heroDescription">
+                    Miles Morales retorna para o próximo capítulo da saga vencedora do Oscar de Aranhaverso, uma aventura épica que transportará o amigão da vizinhança do Brooklyn através do Multiverso para unir forças com Gwen Stacy e um novo time de Pessoas-Aranha.
+                </p>
+                <div class="btn-container">
+                    <button class="btn btn-primary" onclick="scrollParaVideo()">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
+                            <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+                        </svg> Assistir Trailer
+                    </button>
+                    <button class="btn btn-secondary" onclick="alert('Funcionalidade de Detalhes em breve!')">Mais Informações</button>
+                </div>
+            </div>
+
+            <!-- Player de Vídeo em Destaque -->
+            <div class="player-container" id="playerWrapper">
+                <iframe id="mainPlayer" src="https://www.youtube.com/embed/gt_fAE1Eg2Q?autoplay=0&rel=0" 
+                    title="YouTube video player" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO DE VÍDEOS / FILMES EM DESTAQUE -->
+    <section class="categoria">
+        <h2>Filmes Recomendados</h2>
+        <div class="categoria-videos">
+            
+            <!-- Card 1 (Spider-Man) -->
+            <div class="card-video" onclick="changeFeaturedVideo('gt_fAE1Eg2Q', 'ATRAVÉS DO ARANHAVERSO', '#homem-aranha', 'Miles Morales se une a uma equipe de elite de Pessoas-Aranha para proteger a própria existência do Multiverso, mas enfrenta dilemas morais doloridos sobre o que significa ser um herói.')">
+                <div class="card-thumb-wrapper">
+                    <img src="https://img.youtube.com/vi/gt_fAE1Eg2Q/maxresdefault.jpg" alt="Através do Aranhaverso">
+                </div>
+                <div class="card-info">
+                    <h3 class="card-title">Através do Aranhaverso</h3>
+                    <span class="card-tag">#homem-aranha</span>
+                </div>
+            </div>
+
+            <!-- Card 2 (Interstellar) -->
+            <div class="card-video" onclick="changeFeaturedVideo('cs15QqG6Gjc', 'INTERESTELAR', '#ficção-científica', 'As reservas de recursos naturais da Terra estão se esgotando. Um grupo de astronautas recebe a missão de verificar possíveis planetas habitáveis em busca de salvar a humanidade.')">
+                <div class="card-thumb-wrapper">
+                    <img src="https://img.youtube.com/vi/cs15QqG6Gjc/maxresdefault.jpg" alt="Interestelar">
+                </div>
+                <div class="card-info">
+                    <h3 class="card-title">Interestelar</h3>
+                    <span class="card-tag">#ficção-científica</span>
+                </div>
+            </div>
+
+            <!-- Card 3 (Guardians of the Galaxy) -->
+            <div class="card-video" onclick="changeFeaturedVideo('nCmIwcycUJ8', 'GUARDIÕES DA GALÁXIA VOL. 3', '#marvel', 'O amado grupo de desajustados busca se estabelecer em Knowhere, mas logo suas vidas são reviradas pelo passado turbulento de Rocket. Peter Quill deve liderar sua equipe para salvá-lo.')">
+                <div class="card-thumb-wrapper">
+                    <img src="https://img.youtube.com/vi/nCmIwcycUJ8/maxresdefault.jpg" alt="Guardiões da Galáxia">
+                </div>
+                <div class="card-info">
+                    <h3 class="card-title">Guardiões da Galáxia Vol. 3</h3>
+                    <span class="card-tag">#marvel</span>
+                </div>
+            </div>
+
+            <!-- Card 4 (The Batman) -->
+            <div class="card-video" onclick="changeFeaturedVideo('Ipkw_hWW-Hw', 'THE BATMAN', '#dc-comics', 'Nos seus dois anos de caça aos criminosos como Batman, Bruce Wayne é levado às sombras profundas de Gotham City, enfrentando uma série de intrigas corruptas e o perigoso Charada.')">
+                <div class="card-thumb-wrapper">
+                    <img src="https://img.youtube.com/vi/Ipkw_hWW-Hw/maxresdefault.jpg" alt="The Batman">
+                </div>
+                <div class="card-info">
+                    <h3 class="card-title">The Batman</h3>
+                    <span class="card-tag">#dc-comics</span>
+                </div>
+            </div>
+
+            <!-- Card 5 (Avatar) -->
+            <div class="card-video" onclick="changeFeaturedVideo('d4DzMNGoyis', 'AVATAR: O CAMINHO DA ÁGUA', '#fantasia', 'Jake Sully e Neytiri formaram uma família em Pandora e fazem de tudo para continuarem juntos. No entanto, eles precisam abandonar seu lar e explorar as regiões subaquáticas do planeta.')">
+                <div class="card-thumb-wrapper">
+                    <img src="https://img.youtube.com/vi/d4DzMNGoyis/maxresdefault.jpg" alt="Avatar">
+                </div>
+                <div class="card-info">
+                    <h3 class="card-title">Avatar 2</h3>
+                    <span class="card-tag">#fantasia</span>
+                </div>
+            </div>
+
+            <!-- Card 6 (Dune) -->
+            <div class="card-video" onclick="changeFeaturedVideo('FvRmEapoHRc', 'DUNA: PARTE 2', '#ficção-científica', 'Paul Atreides se une a Chani e aos Fremen para buscar vingança contra os conspiradores que destruíram sua família. Uma jornada mística e militar pelo implacável deserto de Arrakis.')">
+                <div class="card-thumb-wrapper">
+                    <img src="https://img.youtube.com/vi/FvRmEapoHRc/maxresdefault.jpg" alt="Duna 2">
+                </div>
+                <div class="card-info">
+                    <h3 class="card-title">Duna: Parte 2</h3>
+                    <span class="card-tag">#ficção-científica</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>&copy; 2026 <strong>Guiminamflix</strong>. Desenvolvido para entusiastas do cinema e streaming.</p>
+    </footer>
+
+    <!-- SCRIPTS DE INTERAÇÃO -->
+    <script>
+        // Função para alterar dinamicamente o vídeo em destaque
+        function changeFeaturedVideo(videoId, title, tag, description) {
+            // Atualizar o Player do YouTube
+            const player = document.getElementById('mainPlayer');
+            player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+
+            // Atualizar os Textos
+            document.getElementById('heroTitle').innerText = title;
+            document.getElementById('heroTag').innerText = tag;
+            document.getElementById('heroDescription').innerText = description;
+
+            // Atualizar a Imagem de Fundo do Banner com transição suave
+            const heroBanner = document.getElementById('heroBanner');
+            heroBanner.style.backgroundImage = `url('https://img.youtube.com/vi/${videoId}/maxresdefault.jpg')`;
+
+            // Scroll suave até o topo para visualizar o vídeo novo se necessário
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // Função do botão de assistir para focar no player de vídeo
+        function scrollParaVideo() {
+            const playerWrapper = document.getElementById('playerWrapper');
+            playerWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        // Efeito de rolagem do Cabeçalho (Fica escuro ao rolar a página)
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('mainHeader');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
