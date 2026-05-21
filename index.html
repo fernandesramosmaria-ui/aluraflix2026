@@ -7,17 +7,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <title>mariak</title>
+    <title>Guiminamflix</title>
 
     <style>
         /* --- VARIÁVEIS E CONFIGURAÇÕES GERAIS --- */
         :root {
-            --primary-color: #E50914;
-            --background-color: #141414;
-            --card-bg: #1f1f1f;
+            /* Definição de variáveis globais (CSS Variables) para facilitar a manutenção das cores e efeitos */
+            --primary-color: #E50914; /* Vermelho padrão estilo Netflix */
+            --background-color: #141414; /* Grafite escuro para o fundo */
+            --card-bg: #1f1f1f; /* Cinza levemente mais claro para os cards de vídeo */
             --text-color: #FFFFFF;
-            --accent-color: #00DFA2;
-            --neon-glow: 0px 0px 15px rgba(229, 9, 20, 0.6);
+            --accent-color: #00DFA2; /* Verde neon para as hashtags/tags de destaque */
+            --neon-glow: 0px 0px 15px rgba(229, 9, 20, 0.6); /* Sombra neon vermelha usada no cabeçalho e botões */
         }
 
         body {
@@ -26,26 +27,28 @@
             font-family: "Chakra Petch", sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            overflow-x: hidden; /* Evita barras de rolagem horizontais indesejadas na tela */
+            scroll-behavior: smooth; /* Deixa qualquer rolagem de âncora nativa mais suave */
         }
 
         /* --- HEADER PREMIUM --- */
         header {
-            position: fixed;
+            position: fixed; /* Mantém o cabeçalho fixo no topo enquanto o usuário rola a página */
             top: 0;
             left: 0;
             width: 100%;
-            z-index: 1000;
+            z-index: 1000; /* Garante que o menu fique sempre acima de qualquer outro elemento */
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between; /* Separa o logo/links do campo de busca */
             align-items: center;
             padding: 15px 4%;
-            box-sizing: border-box;
+            box-sizing: border-box; /* Garante que o padding não aumente o tamanho total do elemento */
+            /* Degradê preto transparente no topo para dar legibilidade ao menu sobre o banner */
             background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-            transition: background 0.3s ease;
+            transition: background 0.3s ease; /* Transição suave para quando a classe '.scrolled' for injetada */
         }
 
+        /* Classe ativada via JavaScript quando o usuário rola a página para baixo */
         header.scrolled {
             background: rgba(20, 20, 20, 0.95);
             border-bottom: 2px solid var(--primary-color);
@@ -55,7 +58,7 @@
         .logo-container {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 30px; /* Espaçamento entre o Logo e os links de navegação */
         }
 
         .logo {
@@ -69,7 +72,7 @@
         }
 
         .logo:hover {
-            transform: scale(1.05);
+            transform: scale(1.05); /* Efeito de leve crescimento ao passar o mouse no logo */
         }
 
         .nav-links {
@@ -89,7 +92,7 @@
         }
 
         .nav-links a:hover, .nav-links a.active {
-            color: var(--primary-color);
+            color: var(--primary-color); /* Destaca o link ativo ou com o mouse por cima */
         }
 
         .header-actions {
@@ -102,7 +105,7 @@
             background: rgba(0,0,0,0.6);
             border: 1px solid #555;
             padding: 6px 12px;
-            border-radius: 20px;
+            border-radius: 20px; /* Deixa a barra de pesquisa arredondada */
             color: white;
             font-family: inherit;
             font-size: 14px;
@@ -112,23 +115,23 @@
         }
 
         .search-bar:focus {
-            border-color: var(--primary-color);
+            border-color: var(--primary-color); /* Borda vermelha quando o usuário clica para digitar */
         }
 
         /* --- HERO BANNER (CHAMADA PRINCIPAL) --- */
         .chamada {
             position: relative;
-            min-height: 85vh;
+            min-height: 85vh; /* Ocupa 85% da altura da tela do dispositivo */
             background-size: cover;
             background-position: center;
             display: flex;
             align-items: center;
             padding: 100px 4% 50px 4%;
             box-sizing: border-box;
-            transition: background-image 0.8s ease-in-out;
+            transition: background-image 0.8s ease-in-out; /* Transição suave ao trocar a foto de fundo */
         }
 
-        /* Degradê para fusão de fundo cinematográfica */
+        /* Camada escura por cima da imagem de fundo para dar contraste aos textos e sumir com as bordas */
         .chamada::before {
             content: '';
             position: absolute;
@@ -136,6 +139,7 @@
             left: 0;
             width: 100%;
             height: 100%;
+            /* Mistura de dois gradientes: um horizontal (da esquerda para a direita) e um vertical (para o fundo preto do site) */
             background: linear-gradient(to right, rgba(20,20,20,0.95) 30%, rgba(20,20,20,0.5) 60%, rgba(20,20,20,0.95) 100%),
                         linear-gradient(to bottom, rgba(20,20,20,0.1), rgba(20,20,20,1) 95%);
             z-index: 1;
@@ -143,9 +147,9 @@
 
         .chamada-content {
             position: relative;
-            z-index: 2;
+            z-index: 2; /* Fica acima do efeito escuro do ::before */
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
+            grid-template-columns: 1.2fr 1fr; /* Divide o banner em duas colunas: Esquerda (Texto) e Direita (Player) */
             gap: 40px;
             align-items: center;
             width: 100%;
@@ -209,14 +213,14 @@
 
         .btn-primary:hover {
             background-color: #ff1e27;
-            transform: translateY(-2px);
+            transform: translateY(-2px); /* Eleva levemente o botão no hover */
             box-shadow: var(--neon-glow);
         }
 
         .btn-secondary {
             background-color: rgba(255,255,255,0.2);
             color: white;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(5px); /* Efeito de vidro fosco (glassmorphism) atrás do botão */
         }
 
         .btn-secondary:hover {
@@ -224,11 +228,11 @@
             transform: translateY(-2px);
         }
 
-        /* Container do Player Incorporado */
+        /* Container do Player Incorporado do YouTube */
         .player-container {
             position: relative;
             width: 100%;
-            aspect-ratio: 16/9;
+            aspect-ratio: 16/9; /* Mantém a proporção de tela de cinema/TV */
             border: 3px solid var(--primary-color);
             border-radius: 12px;
             overflow: hidden;
@@ -246,7 +250,7 @@
             border: none;
         }
 
-        /* --- VITRINE DE CATEGORIAS --- */
+        /* --- VITRINE DE CATEGORIAS (CAROUSEL) --- */
         .categoria {
             padding: 30px 4%;
             position: relative;
@@ -258,35 +262,36 @@
             font-size: 24px;
             font-weight: 600;
             margin: 0 0 15px 0;
-            border-left: 4px solid var(--primary-color);
+            border-left: 4px solid var(--primary-color); /* Pequena barra vertical vermelha ao lado do título */
             padding-left: 10px;
         }
 
         .categoria-videos {
             display: flex;
-            overflow-x: auto;
+            overflow-x: auto; /* Permite arrastar/rolar os vídeos para o lado (Horizontal) */
             gap: 20px;
             padding: 10px 5px 20px 5px;
             scroll-behavior: smooth;
         }
 
-        /* Estilização dos Cards de Vídeo */
+        /* Estilização dos Cards de Vídeo individualmente */
         .card-video {
-            flex: 0 0 auto;
+            flex: 0 0 auto; /* Impede que o flexbox amasse ou encolha os cards */
             width: 280px;
             background-color: var(--card-bg);
             border-radius: 8px;
             overflow: hidden;
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            /* Transição complexa usando cubic-bezier para dar efeito de mola ao crescer o card */
             transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.3s ease, border-color 0.3s;
             border: 2px solid transparent;
         }
 
         .card-video:hover {
-            transform: translateY(-8px) scale(1.05);
+            transform: translateY(-8px) scale(1.05); /* Salta para cima e cresce */
             box-shadow: 0 10px 20px rgba(0,0,0,0.8), 0 0 10px rgba(229, 9, 20, 0.4);
-            border-color: var(--primary-color);
+            border-color: var(--primary-color); /* Revela a borda vermelha oculta */
         }
 
         .card-thumb-wrapper {
@@ -299,12 +304,12 @@
         .card-video img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: cover; /* Faz a imagem preencher todo o espaço sem distorcer */
             transition: transform 0.5s ease;
         }
 
         .card-video:hover img {
-            transform: scale(1.1);
+            transform: scale(1.1); /* Zoom sutil na imagem interna do card ao passar o mouse */
         }
 
         .card-info {
@@ -315,9 +320,9 @@
             font-size: 16px;
             font-weight: 600;
             margin: 0 0 5px 0;
-            white-space: nowrap;
+            white-space: nowrap; /* Impede que o título quebre linha */
             overflow: hidden;
-            text-overflow: ellipsis;
+            text-overflow: ellipsis; /* Adiciona os "..." caso o nome do filme seja muito longo */
         }
 
         .card-tag {
@@ -326,9 +331,9 @@
             font-weight: 500;
         }
 
-        /* --- CONTROLES DE ROLAGEM CUSTOMIZADOS --- */
+        /* --- CONTROLES DE ROLAGEM CUSTOMIZADOS (SCROLLBAR) --- */
         .categoria-videos::-webkit-scrollbar {
-            height: 8px;
+            height: 8px; /* Altura da barra de rolagem horizontal dos cards */
         }
         
         .categoria-videos::-webkit-scrollbar-track {
@@ -343,13 +348,14 @@
         }
 
         .categoria-videos::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-color);
+            background: var(--primary-color); /* Scrollbar fica vermelha quando passa o mouse */
         }
 
-        /* --- RESPONSIVIDADE (MOBILE & TABLETS) --- */
+        /* --- RESPONSIVIDADE (MEDIA QUERIES) --- */
+        /* Configurações para Tablets e Telas Médias */
         @media (max-width: 968px) {
             .chamada-content {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr; /* Muda o Banner de duas colunas para uma única coluna vertical */
                 gap: 30px;
             }
 
@@ -363,10 +369,11 @@
             }
 
             .nav-links {
-                display: none; /* Simplifica o menu em telas pequenas */
+                display: none; /* Oculta os links do menu para economizar espaço em telas menores */
             }
         }
 
+        /* Configurações para Smartphones (Telas Pequenas) */
         @media (max-width: 480px) {
             header {
                 padding: 10px 4%;
@@ -385,7 +392,7 @@
             }
 
             .btn-container {
-                flex-direction: column;
+                flex-direction: column; /* Empilha os botões "Assistir" e "Mais informações" verticalmente */
                 gap: 10px;
             }
 
@@ -394,7 +401,7 @@
             }
             
             .card-video {
-                width: 220px;
+                width: 220px; /* Reduz levemente o tamanho dos cards no celular */
             }
         }
 
@@ -416,10 +423,9 @@
 
 <body>
 
-    <!-- CABEÇALHO (HEADER) -->
     <header id="mainHeader">
         <div class="logo-container">
-            <a href="#" class="logo">mariakFLIX</a>
+            <a href="#" class="logo">GUIMINAMFLIX</a>
             <ul class="nav-links">
                 <li><a href="#" class="active">Início</a></li>
                 <li><a href="#">Séries</a></li>
@@ -433,7 +439,6 @@
         </div>
     </header>
 
-    <!-- BANNER DE CHAMADA (DESTAQUE INTEGRADO) -->
     <section class="chamada" id="heroBanner" style="background-image: url('https://img.youtube.com/vi/gt_fAE1Eg2Q/maxresdefault.jpg');">
         <div class="chamada-content">
             <div class="chamada-texto">
@@ -452,7 +457,6 @@
                 </div>
             </div>
 
-            <!-- Player de Vídeo em Destaque -->
             <div class="player-container" id="playerWrapper">
                 <iframe id="mainPlayer" src="https://www.youtube.com/embed/gt_fAE1Eg2Q?autoplay=0&rel=0" 
                     title="YouTube video player" 
@@ -463,12 +467,10 @@
         </div>
     </section>
 
-    <!-- SEÇÃO DE VÍDEOS / FILMES EM DESTAQUE -->
     <section class="categoria">
         <h2>Filmes Recomendados</h2>
         <div class="categoria-videos">
             
-            <!-- Card 1 (Spider-Man) -->
             <div class="card-video" onclick="changeFeaturedVideo('gt_fAE1Eg2Q', 'ATRAVÉS DO ARANHAVERSO', '#homem-aranha', 'Miles Morales se une a uma equipe de elite de Pessoas-Aranha para proteger a própria existência do Multiverso, mas enfrenta dilemas morais doloridos sobre o que significa ser um herói.')">
                 <div class="card-thumb-wrapper">
                     <img src="https://img.youtube.com/vi/gt_fAE1Eg2Q/maxresdefault.jpg" alt="Através do Aranhaverso">
@@ -479,7 +481,6 @@
                 </div>
             </div>
 
-            <!-- Card 2 (Interstellar) -->
             <div class="card-video" onclick="changeFeaturedVideo('cs15QqG6Gjc', 'INTERESTELAR', '#ficção-científica', 'As reservas de recursos naturais da Terra estão se esgotando. Um grupo de astronautas recebe a missão de verificar possíveis planetas habitáveis em busca de salvar a humanidade.')">
                 <div class="card-thumb-wrapper">
                     <img src="https://img.youtube.com/vi/cs15QqG6Gjc/maxresdefault.jpg" alt="Interestelar">
@@ -490,7 +491,6 @@
                 </div>
             </div>
 
-            <!-- Card 3 (Guardians of the Galaxy) -->
             <div class="card-video" onclick="changeFeaturedVideo('nCmIwcycUJ8', 'GUARDIÕES DA GALÁXIA VOL. 3', '#marvel', 'O amado grupo de desajustados busca se estabelecer em Knowhere, mas logo suas vidas são reviradas pelo passado turbulento de Rocket. Peter Quill deve liderar sua equipe para salvá-lo.')">
                 <div class="card-thumb-wrapper">
                     <img src="https://img.youtube.com/vi/nCmIwcycUJ8/maxresdefault.jpg" alt="Guardiões da Galáxia">
@@ -501,7 +501,6 @@
                 </div>
             </div>
 
-            <!-- Card 4 (The Batman) -->
             <div class="card-video" onclick="changeFeaturedVideo('Ipkw_hWW-Hw', 'THE BATMAN', '#dc-comics', 'Nos seus dois anos de caça aos criminosos como Batman, Bruce Wayne é levado às sombras profundas de Gotham City, enfrentando uma série de intrigas corruptas e o perigoso Charada.')">
                 <div class="card-thumb-wrapper">
                     <img src="https://img.youtube.com/vi/Ipkw_hWW-Hw/maxresdefault.jpg" alt="The Batman">
@@ -512,7 +511,6 @@
                 </div>
             </div>
 
-            <!-- Card 5 (Avatar) -->
             <div class="card-video" onclick="changeFeaturedVideo('d4DzMNGoyis', 'AVATAR: O CAMINHO DA ÁGUA', '#fantasia', 'Jake Sully e Neytiri formaram uma família em Pandora e fazem de tudo para continuarem juntos. No entanto, eles precisam abandonar seu lar e explorar as regiões subaquáticas do planeta.')">
                 <div class="card-thumb-wrapper">
                     <img src="https://img.youtube.com/vi/d4DzMNGoyis/maxresdefault.jpg" alt="Avatar">
@@ -523,7 +521,6 @@
                 </div>
             </div>
 
-            <!-- Card 6 (Dune) -->
             <div class="card-video" onclick="changeFeaturedVideo('FvRmEapoHRc', 'DUNA: PARTE 2', '#ficção-científica', 'Paul Atreides se une a Chani e aos Fremen para buscar vingança contra os conspiradores que destruíram sua família. Uma jornada mística e militar pelo implacável deserto de Arrakis.')">
                 <div class="card-thumb-wrapper">
                     <img src="https://img.youtube.com/vi/FvRmEapoHRc/maxresdefault.jpg" alt="Duna 2">
@@ -537,48 +534,56 @@
         </div>
     </section>
 
-    <!-- RODAPÉ -->
     <footer>
         <p>&copy; 2026 <strong>Guiminamflix</strong>. Desenvolvido para entusiastas do cinema e streaming.</p>
     </footer>
 
-    <!-- SCRIPTS DE INTERAÇÃO -->
     <script>
-        // Função para alterar dinamicamente o vídeo em destaque
+        /**
+         * Altera dinamicamente todas as informações do banner principal (Destaque).
+         * É chamada quando o usuário clica em qualquer card de vídeo da lista inferior.
+         */
         function changeFeaturedVideo(videoId, title, tag, description) {
-            // Atualizar o Player do YouTube
+            // 1. Captura o elemento iframe do player principal e atualiza a URL com o novo ID do vídeo e autoplay ativado
             const player = document.getElementById('mainPlayer');
             player.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
 
-            // Atualizar os Textos
+            // 2. Captura e atualiza os elementos de texto do Banner Principal
             document.getElementById('heroTitle').innerText = title;
             document.getElementById('heroTag').innerText = tag;
             document.getElementById('heroDescription').innerText = description;
 
-            // Atualizar a Imagem de Fundo do Banner com transição suave
+            // 3. Captura o container do Banner e substitui o link da imagem de fundo baseando-se no ID do YouTube
             const heroBanner = document.getElementById('heroBanner');
             heroBanner.style.backgroundImage = `url('https://img.youtube.com/vi/${videoId}/maxresdefault.jpg')`;
 
-            // Scroll suave até o topo para visualizar o vídeo novo se necessário
+            // 4. Executa um scroll suave da tela em direção ao topo da página para focar na mudança do vídeo
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
             });
         }
 
-        // Função do botão de assistir para focar no player de vídeo
+        /**
+         * Move a visualização da tela suavemente até o elemento do Player de vídeo.
+         * É executada ao clicar no botão "Assistir Trailer".
+         */
         function scrollParaVideo() {
             const playerWrapper = document.getElementById('playerWrapper');
+            // Faz o scroll focando o elemento selecionado de forma centralizada na tela do usuário
             playerWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
-        // Efeito de rolagem do Cabeçalho (Fica escuro ao rolar a página)
+        /**
+         * Monitora o evento de rolagem (scroll) da janela do navegador.
+         * Caso o usuário role a página para baixo além de 50px, adiciona uma classe de estilo escuro ao header.
+         */
         window.addEventListener('scroll', () => {
             const header = document.getElementById('mainHeader');
             if (window.scrollY > 50) {
-                header.classList.add('scrolled');
+                header.classList.add('scrolled'); /* Aplica fundo escuro e sombra neon via CSS */
             } else {
-                header.classList.remove('scrolled');
+                header.classList.remove('scrolled'); /* Remove os estilos e devolve o gradiente transparente original */
             }
         });
     </script>
@@ -586,3 +591,5 @@
 </body>
 
 </html>
+       
+
