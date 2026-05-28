@@ -1,17 +1,16 @@
 body {
     color: white;
-    background: #6f2b78;
-background: linear-gradient(90deg,rgba(111, 43, 120, 1) 0%, rgba(54, 43, 43, 1) 50%, rgba(90, 37, 107, 1) 100%);
+    background: black;
     margin: 0px;
     font-family: "Chakra Petch", sans-serif;
     margin-bottom: 100px;
 }
 
 header {
-    border-bottom: solid 2px rgb(255, 255, 255);
+    border-bottom: solid 2px rgb(42, 122, 228);
     padding: 20px;
     font-size: 32px;
-    color: rgb(0, 0, 0);
+    color: rgb(42, 122, 228);
 }
 
 .chamada {
@@ -59,4 +58,3 @@ p {
 .categoria h2 {
     color: rgb(42, 122, 228);
 }
-
